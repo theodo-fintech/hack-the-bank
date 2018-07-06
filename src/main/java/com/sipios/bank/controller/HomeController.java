@@ -24,4 +24,24 @@ public class HomeController {
         model.addAttribute("appName", appName);
         return "home";
     }
+
+    @GetMapping("/restricted")
+    public String restrictedPage(Model model, @RequestParam("maintenanceDisabled") Optional<String> maintenanceDisabled) {
+        if (maintenanceDisabled.isPresent()) {
+            model.addAttribute("maintenanceDisabled", maintenanceDisabled);
+        }
+        model.addAttribute("appName", appName);
+        return "home";
+    }
+
+    @GetMapping("/se-connecter")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login";
+    }
 }

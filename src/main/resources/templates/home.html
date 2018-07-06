@@ -17,13 +17,12 @@
         <div class="header_resize">
             <div class="menu_nav">
                 <ul th:if="${maintenanceDisabled}">
-                    <li class="active"><a href="index.html"><span>Accueil</span></a></li>
-                    <li><a href="support.html"><span>Virements</span></a></li>
-                    <li><a href="about.html"><span>Assistance</span></a></li>
+                    <li class="active"><a href="/"><span>Accueil</span></a></li>
+                    <li><a href="/se-connecter"><span>Déjà client?</span></a></li>
                 </ul>
             </div>
             <div class="logo">
-                <h1><a href="index.html"><span>Sipios Bank</span> <small>L'investissement sain, aujourd'hui</small></a></h1>
+                <h1><a href="/"><span>Sipios Bank</span> <small>L'investissement sain, aujourd'hui</small></a></h1>
             </div>
             <div class="clr"></div>
             <div class="slider">
@@ -39,31 +38,37 @@
                 <h2>Le site de la banque est actuellement en maintenance. L'équipe support IT sera mobilisée sous 9J ouvrés.</h2>
             </div>
             <div class="mainbar" th:if="${maintenanceDisabled}">
+                <h1>3 Options de Compte!</h1>
                 <div class="article">
-                    <h2><span>Excellent Solution</span> For Your Business</h2>
-                    <p class="infopost">Posted on <span class="date">11 sep 2018</span> by <a href="#">Admin</a> &nbsp;&nbsp;|&nbsp;&nbsp; Filed under <a href="#">templates</a>, <a href="#">internet</a></p>
+                    <h2><span>Compte</span> Discount</h2>
                     <div class="clr"></div>
                     <div class="img"><img src="images/img1.jpg" width="180" height="229" alt="" class="fl" /></div>
                     <div class="post_content">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. <a href="#">Suspendisse bibendum. Cras id urna.</a> Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. Cras fringilla magna. Phasellus suscipit, leo a pharetra condimentum, lorem tellus eleifend magna, eget fringilla velit magna id neque. Curabitur vel urna. In tristique orci porttitor ipsum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo.</p>
-                        <p><strong>Aenean consequat porttitor adipiscing. Nam pellentesque justo ut tortor congue lobortis. Donec venenatis sagittis fringilla.</strong> Etiam nec libero magna, et dictum velit. Proin mauris mauris, mattis eu elementum eget, commodo in nulla. Mauris posuere venenatis pretium. Maecenas a dui sed lorem aliquam dictum. Nunc urna leo, imperdiet eu bibendum ac, pretium ac massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Quisque condimentum luctus ullamcorper.</p>
-                        <p class="spec"><a href="#" class="rm">Read more &raquo;</a> <a href="#" class="com"><span>11</span></a></p>
+                        <p>La base, ça fait plaisir</p>
+                        <p><strong>Super!</strong> Avec ce compte, la Sipios Bank vous prélève quelques euros par mois pour héberger votre argent. Pas de digital, mais un conseiller disponible en agence sauf lorsqu'il est en congés et pendant nos horaires de travail.</p>
                     </div>
                     <div class="clr"></div>
                 </div>
                 <div class="article">
-                    <h2><span>We'll Make Sure Template</span> Works For You</h2>
-                    <p class="infopost">Posted on <span class="date">29 aug 2016</span> by <a href="#">Admin</a> &nbsp;&nbsp;|&nbsp;&nbsp; Filed under <a href="#">templates</a>, <a href="#">internet</a></p>
+                    <h2><span>Compte</span> Premium</h2>
                     <div class="clr"></div>
                     <div class="img"><img src="images/img2.jpg" width="180" height="229" alt="" class="fl" /></div>
                     <div class="post_content">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="#">Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo.</a> Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. Cras fringilla magna. Phasellus suscipit, leo a pharetra condimentum, lorem tellus eleifend magna, eget fringilla velit magna id neque. Curabitur vel urna. In tristique orci porttitor ipsum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam.</p>
-                        <p><strong>Aenean consequat porttitor adipiscing. Nam pellentesque justo ut tortor congue lobortis. Donec venenatis sagittis fringilla.</strong> Etiam nec libero magna, et dictum velit. Proin mauris mauris, mattis eu elementum eget, commodo in nulla. Mauris posuere venenatis pretium. Maecenas a dui sed lorem aliquam dictum. Nunc urna leo, imperdiet eu bibendum ac, pretium ac massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Quisque condimentum luctus ullamcorper.</p>
-                        <p class="spec"><a href="#" class="rm">Read more &raquo;</a> <a href="#" class="com"><span>7</span></a></p>
+                        <p>Connecté avec votre banque</p>
+                        <p><strong>Incroyable!</strong> Avec ce compte, pour 1000€ par mois, vous pouvez chater en direct avec votre conseiller 5J/7 de 19h à 23h!</p>
                     </div>
                     <div class="clr"></div>
                 </div>
-                <p class="pages"><small>Page 1 of 2</small> <span>1</span> <a href="#">2</a> <a href="#">&raquo;</a></p>
+                <div class="article">
+                    <h2><span>Compte</span> Super Premium</h2>
+                    <div class="clr"></div>
+                    <div class="img"><img src="images/img3.jpg" width="180" height="229" alt="" class="fl" /></div>
+                    <div class="post_content">
+                        <p>Truffé de digital</p>
+                        <p><strong>Waou!</strong> En vous engageant à reverser 50% de vos plus-values à la Sipios Bank, nous vous proposons des services digitaux hors norme : en plus du chat avec votre conseiller, vous avez la possibilité de faire des virements en ligne jusqu'à 2000€!</p>
+                    </div>
+                    <div class="clr"></div>
+                </div>
             </div>
             <div class="sidebar">
                 <div class="clr"></div>
@@ -71,20 +76,19 @@
                     <h2 class="star">Menu</h2>
                     <div class="clr"></div>
                     <ul class="sb_menu">
-                        <li><a href="#">Accueil</a></li>
-                        <li><a href="#">Virements</a></li>
-                        <li><a href="#">Assistance</a></li>
+                        <li><a href="/">Accueil</a></li>
+                        <li><a href="/se-connecter">Déjà client?</a></li>
                     </ul>
                 </div>
                 <div class="gadget" th:if="${maintenanceDisabled}">
                     <h2 class="star"><span>Sponsors</span></h2>
                     <div class="clr"></div>
                     <ul class="ex_menu">
-                        <li><a href="#">Caïman Corp</a><br />
+                        <li>Caïman Corp<br />
                             Des investissements paradisiaques</li>
-                        <li><a href="#">Laundering SARL</a><br />
+                        <li>Laundering SARL<br />
                             Investissez dans des commerces locaux</li>
-                        <li><a href="#">Insider Trading Limited</a><br />
+                        <li>Insider Trading Limited<br />
                             Tout savoir avant tout le monde</li>
                     </ul>
                 </div>
