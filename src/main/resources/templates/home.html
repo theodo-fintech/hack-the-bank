@@ -18,7 +18,7 @@
             <div class="menu_nav">
                 <ul th:if="${maintenanceDisabled}">
                     <li class="active"><a href="/"><span>Accueil</span></a></li>
-                    <li><a href="/se-connecter"><span>Déjà client?</span></a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/se-connecter"><span>Déjà client?</span></a></li>
                 </ul>
             </div>
             <div class="logo">
@@ -78,7 +78,7 @@
                     <div class="clr"></div>
                     <ul class="sb_menu">
                         <li><a href="/">Accueil</a></li>
-                        <li><a href="/se-connecter">Déjà client?</a></li>
+                        <li sec:authorize="!isAuthenticated()"><a href="/se-connecter">Déjà client?</a></li>
                     </ul>
                 </div>
                 <div class="gadget" th:if="${maintenanceDisabled}">
