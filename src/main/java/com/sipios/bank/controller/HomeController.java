@@ -2,8 +2,11 @@ package com.sipios.bank.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -12,11 +15,13 @@ public class HomeController {
 
     @GetMapping("/")
     public String homePage(
-        @RequestParam(name="debug", defaultValue="false") Boolean debug
+        Model model,
+        @RequestParam("maintenanceDisabled") Optional<String> maintenanceDisabled
     ) {
-        if (debug)
-            return "home";
-
-        return "maintenance";
+        if (maintenanceDisabled.isPresent()) {
+            model.addAttribute("maintenanceDisabled", maintenanceDisabled);
+        }
+        model.addAttribute("appName", appName);
+        return "home";
     }
 }

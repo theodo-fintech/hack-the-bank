@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Toother</title>
+    <title>Sipios Bank</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link th:href="@{/css/style.css}" href="../../css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/coin-slider.css" />
@@ -16,7 +16,7 @@
     <div class="header">
         <div class="header_resize">
             <div class="menu_nav">
-                <ul>
+                <ul th:if="${maintenanceDisabled}">
                     <li class="active"><a href="index.html"><span>Accueil</span></a></li>
                     <li><a href="support.html"><span>Virements</span></a></li>
                     <li><a href="about.html"><span>Assistance</span></a></li>
@@ -35,7 +35,10 @@
     </div>
     <div class="content">
         <div class="content_resize">
-            <div class="mainbar">
+            <div th:unless="${maintenanceDisabled}">
+                <h2>Le site de la banque est actuellement en maintenance. L'équipe support IT sera mobilisée sous 9J ouvrés.</h2>
+            </div>
+            <div class="mainbar" th:if="${maintenanceDisabled}">
                 <div class="article">
                     <h2><span>Excellent Solution</span> For Your Business</h2>
                     <p class="infopost">Posted on <span class="date">11 sep 2018</span> by <a href="#">Admin</a> &nbsp;&nbsp;|&nbsp;&nbsp; Filed under <a href="#">templates</a>, <a href="#">internet</a></p>
@@ -64,7 +67,7 @@
             </div>
             <div class="sidebar">
                 <div class="clr"></div>
-                <div class="gadget">
+                <div class="gadget" th:if="${maintenanceDisabled}">
                     <h2 class="star">Menu</h2>
                     <div class="clr"></div>
                     <ul class="sb_menu">
@@ -73,7 +76,7 @@
                         <li><a href="#">Assistance</a></li>
                     </ul>
                 </div>
-                <div class="gadget">
+                <div class="gadget" th:if="${maintenanceDisabled}">
                     <h2 class="star"><span>Sponsors</span></h2>
                     <div class="clr"></div>
                     <ul class="ex_menu">
@@ -91,22 +94,21 @@
     </div>
     <div class="fbg">
         <div class="fbg_resize">
-            <div class="col c1">
-                <h2><span>Image</span> Gallery</h2>
-                <a href="#"><img src="images/gal1.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal2.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal3.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal4.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal5.jpg" width="75" height="75" alt="" class="gal" /></a> <a href="#"><img src="images/gal6.jpg" width="75" height="75" alt="" class="gal" /></a> </div>
-            <div class="col c2">
+            <div class="col c3">
                 <h2><span>Nos</span> Services</h2>
-                <p>Nous gérons vos comptes en banques et v</p>
+                <p>Nous gérons vos comptes en banques et vos investissements comme si c'était les notres</p>
                 <ul class="fbg_ul">
-                    <li><a href="#">Lorem ipsum dolor labore et dolore.</a></li>
-                    <li><a href="#">Excepteur officia deserunt.</a></li>
-                    <li><a href="#">Integer tellus ipsum tempor sed.</a></li>
+                    <li>Une réponse rapide à vos demandes (2 semaines maximum)</li>
+                    <li>Une performance hors du commun : nous dépassons parfois les obligations d'état</li>
+                    <li>Un risque contrôlé, souvent inférieur aux options</li>
                 </ul>
             </div>
             <div class="col c3">
                 <h2><span>Nous</span> Contacter</h2>
                 <p>Pour devenir client, merci de vous rendre en agence de 10h30 à 11h30 et de 14h à 15h30 du mardi au vendredi</p>
-                <p class="contact_info"> <span>Adresse:</span> 48 boulevard des batignolles, 75017 Paris</p>
+                <p class="contact_info"> <span>Adresse Agence:</span> Sipios, 48 boulevard des batignolles, 75017 Paris</p>
+                <p class="contact_info"> <span>Adresse Equipe Support IT:</span> Bam, 48 boulevard des batignolles, 75017 Paris</p>
+
             </div>
             <div class="clr"></div>
         </div>
@@ -118,5 +120,6 @@
         </div>
     </div>
 </div>
+<!-- CHANGELOG 1.0.6 : Added maintenanceDisabled query param to override maintenance mode for debug purposes -->
 </body>
 </html>
