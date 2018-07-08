@@ -520,3 +520,7 @@ ol li .send {
 a {
 	outline:none;
 }
+.maintenance{
+	padding: 20px;
+	text-align: center;
+}
