@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/restricted/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-            .formLogin().loginPage("/se-connecter").failureUrl("/login-error")
+            .formLogin().loginPage("/se-connecter").failureUrl("/login-error").defaultSuccessUrl("/user-redirect")
                 .permitAll()
                 .and()
             .logout()

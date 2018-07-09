@@ -35,12 +35,13 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @PostConstruct
     public void registerUsers() {
-        Role adminRole = createRoleIfNotFound("ADMIN");
-        Role userRole = createRoleIfNotFound("USER");
+        Role adminRole = createRoleIfNotFound("ROLE_ADMIN");
+        Role userRole = createRoleIfNotFound("ROLE_USER");
         User test = new User();
         test.setUsername("test");
         test.setPassword(passwordEncoder.encode("test"));
         test.setRoles(Arrays.asList(userRole));
+        userRepository.save(test);
 
         User admin = new User();
         admin.setUsername("admin");
