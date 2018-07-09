@@ -1,5 +1,8 @@
 package com.sipios.bank.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.util.Collection;
 
 import javax.persistence.*;
@@ -17,7 +20,8 @@ public class User {
 
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
         name = "users_roles",
         joinColumns = @JoinColumn(
@@ -25,6 +29,16 @@ public class User {
         inverseJoinColumns = @JoinColumn(
           name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(
+        name = "users_chats",
+        joinColumns = @JoinColumn(
+            name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(
+            name = "chat_id", referencedColumnName = "id"))
+    private Collection<Chat> chats;
 
     //standard getters and setters
 
@@ -58,5 +72,13 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public Collection<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(Collection<Chat> chats) {
+        this.chats = chats;
     }
 }
