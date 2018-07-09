@@ -24,4 +24,26 @@ public class AccountController {
 
         return "account";
     }
+
+    @GetMapping("/user/{userId}/chat")
+    public String chat(
+        Model model,
+        @PathVariable Long userId
+    ) {
+        User user = userRepository.getOne(userId);
+        model.addAttribute("user", user);
+
+        return "chat";
+    }
+
+    @GetMapping("/user/{userId}/virement")
+    public String transfert(
+        Model model,
+        @PathVariable Long userId
+    ) {
+        User user = userRepository.getOne(userId);
+        model.addAttribute("user", user);
+
+        return "transfert";
+    }
 }
