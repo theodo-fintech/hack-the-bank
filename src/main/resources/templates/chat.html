@@ -38,14 +38,16 @@
                 <div>Chat avec ton conseiller</div>
                 <div>
                     <th:block th:each="chat : ${user.chats}">
+                        <div class="form">
                         <th:block th:each="message : ${chat.messages}">
-                            <div th:utext="${message.value}">...</div>
+                            <div class="message" th:utext="${message.value}">...</div>
                         </th:block>
                         <form th:action="@{/chat/{id}(id=${chat.id})}" method="post">
                             <input type="text" id="message" name="message" autofocus="autofocus" /> <br />
                             <input type="hidden" id="userId" name="userId" th:value="${user.id}" /> <br />
                             <input type="submit" value="Envoyer" />
                         </form>
+                        </div>
                     </th:block>
                 </div>
             </div>
