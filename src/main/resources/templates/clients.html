@@ -38,7 +38,12 @@
     <div class="content">
         <div class="content_resize">
             <div class="mainbar">
-                <h2>Bienvenue sur ton espace personnel <span th:text="${user.username}"></span></h2>
+                <h2>Bienvenue sur ton espace conseiller</h2>
+                <th:block th:each="client : ${user.clients}">
+                    <div class="client">
+                        <span th:text="client.id"></span> | <span th:text="client.username"></span>
+                    </div>
+                </th:block>
             </div>
 
             <div class="sidebar">

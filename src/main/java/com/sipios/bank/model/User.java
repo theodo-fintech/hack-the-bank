@@ -40,6 +40,12 @@ public class User {
             name = "chat_id", referencedColumnName = "id"))
     private Collection<Chat> chats;
 
+    @OneToMany(mappedBy="advisor")
+    private Collection<User> clients;
+
+    @ManyToOne
+    private User advisor;
+
     //standard getters and setters
 
     public Long getId() {
@@ -80,5 +86,21 @@ public class User {
 
     public void setChats(Collection<Chat> chats) {
         this.chats = chats;
+    }
+
+    public Collection<User> getClients() {
+        return clients;
+    }
+
+    public void setClients(Collection<User> clients) {
+        this.clients = clients;
+    }
+
+    public User getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(User advisor) {
+        this.advisor = advisor;
     }
 }

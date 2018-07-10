@@ -3,6 +3,7 @@ package com.sipios.bank.controller;
 import com.sipios.bank.model.User;
 import com.sipios.bank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,5 +46,17 @@ public class AccountController {
         model.addAttribute("user", user);
 
         return "transfert";
+    }
+
+    @GetMapping("/user/{userId}/clients")
+    @PreAuthorize(value = "ADMIN")
+    public String clients(
+        Model model,
+        @PathVariable Long userId
+    ) {
+        User user = userRepository.getOne(userId);
+        model.addAttribute("user", user);
+
+        return "clients";
     }
 }
