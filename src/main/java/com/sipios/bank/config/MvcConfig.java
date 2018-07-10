@@ -3,8 +3,10 @@ package com.sipios.bank.config;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
+import com.sipios.bank.model.Chat;
 import com.sipios.bank.model.Role;
 import com.sipios.bank.model.User;
+import com.sipios.bank.repository.ChatRepository;
 import com.sipios.bank.repository.RoleRepository;
 import com.sipios.bank.repository.UserRepository;
 
@@ -27,6 +29,9 @@ public class MvcConfig implements WebMvcConfigurer {
     private UserRepository userRepository;
 
     @Autowired
+    private ChatRepository chatRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -35,17 +40,23 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @PostConstruct
     public void registerUsers() {
-        Role adminRole = createRoleIfNotFound("ADMIN");
-        Role userRole = createRoleIfNotFound("USER");
+        Chat chat = new Chat();
+        chatRepository.save(chat);
+
+        Role adminRole = createRoleIfNotFound("ROLE_ADMIN");
+        Role userRole = createRoleIfNotFound("ROLE_USER");
         User test = new User();
         test.setUsername("test");
         test.setPassword(passwordEncoder.encode("test"));
         test.setRoles(Arrays.asList(userRole));
+        test.setChats(Arrays.asList(chat));
+        userRepository.save(test);
 
         User admin = new User();
         admin.setUsername("admin");
         admin.setPassword(passwordEncoder.encode("admin"));
         admin.setRoles(Arrays.asList(adminRole));
+        admin.setChats(Arrays.asList(chat));
         userRepository.save(admin);
     }
 

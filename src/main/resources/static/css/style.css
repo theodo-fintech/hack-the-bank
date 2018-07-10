@@ -524,3 +524,12 @@ a {
 	padding: 20px;
 	text-align: center;
 }
+.form {
+	width: 400px;
+}
+.message {
+	margin: 10px 0px;
+	padding: 12px;
+	background-color: white;
+	color: black;
+}

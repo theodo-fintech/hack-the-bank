@@ -1,10 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <head>
     <title>Sipios Bank</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link th:href="@{/css/style.css}" href="../../css/style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/coin-slider.css" />
+    <link rel="stylesheet" type="text/css" href="/css/coin-slider.css" />
     <script type="text/javascript" src="/js/cufon-yui.js"></script>
     <script type="text/javascript" src="/js/cufon-titillium-250.js"></script>
     <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
@@ -18,7 +21,7 @@
             <div class="menu_nav">
                 <ul th:if="${maintenanceDisabled}">
                     <li class="active"><a href="/"><span>Accueil</span></a></li>
-                    <li sec:authorize="!isAuthenticated()"><a href="/se-connecter"><span>Déjà client?</span></a></li>
+                    <li><a href="/se-connecter"><span>Déjà client?</span></a></li>
                 </ul>
             </div>
             <div class="logo">
@@ -26,7 +29,7 @@
             </div>
             <div class="clr"></div>
             <div class="slider">
-                <div id="coin-slider"> <a href="#"><img src="images/slide1.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="images/slide2.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="images/slide3.jpg" width="927" height="323" alt="" /> </a> </div>
+                <div id="coin-slider"> <a href="#"><img src="/images/slide1.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="/images/slide2.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="/images/slide3.jpg" width="927" height="323" alt="" /> </a> </div>
                 <div class="clr"></div>
             </div>
             <div class="clr"></div>
@@ -34,54 +37,25 @@
     </div>
     <div class="content">
         <div class="content_resize">
-            <div th:unless="${maintenanceDisabled}">
-                <h2>Le site de la banque est actuellement en maintenance. L'équipe support IT sera mobilisée sous 9J ouvrés.</h2>
+            <div class="mainbar">
+                <h2>Bienvenue sur ton espace personnel <span th:text="${user.username}"></span></h2>
             </div>
-            <div class="mainbar" th:if="${maintenanceDisabled}">
-                <h1>3 Options de Compte!</h1>
-                <div class="article">
-                    <h2><span>Compte</span> Discount</h2>
-                    <div class="clr"></div>
-                    <div class="img"><img src="images/img1.jpg" width="180" height="229" alt="" class="fl" /></div>
-                    <div class="post_content">
-                        <p>La base, ça fait plaisir</p>
-                        <p><strong>Super!</strong> Avec ce compte, la Sipios Bank vous prélève quelques euros par mois pour héberger votre argent. Pas de digital, mais un conseiller disponible en agence sauf lorsqu'il est en congés et pendant nos horaires de travail.</p>
-                    </div>
-                    <div class="clr"></div>
-                </div>
-                <div class="article">
-                    <h2><span>Compte</span> Premium</h2>
-                    <div class="clr"></div>
-                    <div class="img"><img src="images/img2.jpg" width="180" height="229" alt="" class="fl" /></div>
-                    <div class="post_content">
-                        <p>Connecté avec votre banque</p>
-                        <p><strong>Incroyable!</strong> Avec ce compte, pour 1000€ par mois, vous pouvez chater en direct avec votre conseiller 5J/7 de 19h à 23h!</p>
-                        <p>Le saviez-vous? Sipios Bank a offert cette offre à nos 10 premiers clients!</p>
-                    </div>
-                    <div class="clr"></div>
-                </div>
-                <div class="article">
-                    <h2><span>Compte</span> Super Premium</h2>
-                    <div class="clr"></div>
-                    <div class="img"><img src="images/img3.jpg" width="180" height="229" alt="" class="fl" /></div>
-                    <div class="post_content">
-                        <p>Truffé de digital</p>
-                        <p><strong>Waou!</strong> En vous engageant à reverser 50% de vos plus-values à la Sipios Bank, nous vous proposons des services digitaux hors norme : en plus du chat avec votre conseiller, vous avez la possibilité de faire des virements en ligne jusqu'à 2000€!</p>
-                    </div>
-                    <div class="clr"></div>
-                </div>
-            </div>
+
             <div class="sidebar">
                 <div class="clr"></div>
-                <div class="gadget" th:if="${maintenanceDisabled}">
+                <div class="gadget">
                     <h2 class="star">Menu</h2>
                     <div class="clr"></div>
                     <ul class="sb_menu">
-                        <li><a href="/">Accueil</a></li>
-                        <li sec:authorize="!isAuthenticated()"><a href="/se-connecter">Déjà client?</a></li>
+                        <li><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
+                        <li><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a th:href="@{/user/{id}/clients(id=${user.id})}">Voir mes clients</a>
+                        </li>
+
                     </ul>
                 </div>
-                <div class="gadget" th:if="${maintenanceDisabled}">
+                <div class="gadget">
                     <h2 class="star"><span>Sponsors</span></h2>
                     <div class="clr"></div>
                     <ul class="ex_menu">
@@ -125,6 +99,5 @@
         </div>
     </div>
 </div>
-<!-- CHANGELOG 1.0.6 : Added maintenanceDisabled query param to override maintenance mode for debug purposes -->
 </body>
 </html>

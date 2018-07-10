@@ -1,15 +1,12 @@
 package com.sipios.bank.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.util.Collection;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;;
+import javax.persistence.*;
+;
 
 @Entity
 public class User {
@@ -24,6 +21,7 @@ public class User {
     private String password;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
         name = "users_roles",
         joinColumns = @JoinColumn(
@@ -31,6 +29,22 @@ public class User {
         inverseJoinColumns = @JoinColumn(
           name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(
+        name = "users_chats",
+        joinColumns = @JoinColumn(
+            name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(
+            name = "chat_id", referencedColumnName = "id"))
+    private Collection<Chat> chats;
+
+    @OneToMany(mappedBy="advisor")
+    private Collection<User> clients;
+
+    @ManyToOne
+    private User advisor;
 
     //standard getters and setters
 
@@ -64,5 +78,29 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public Collection<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(Collection<Chat> chats) {
+        this.chats = chats;
+    }
+
+    public Collection<User> getClients() {
+        return clients;
+    }
+
+    public void setClients(Collection<User> clients) {
+        this.clients = clients;
+    }
+
+    public User getAdvisor() {
+        return advisor;
+    }
+
+    public void setAdvisor(User advisor) {
+        this.advisor = advisor;
     }
 }
