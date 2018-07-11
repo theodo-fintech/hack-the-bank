@@ -35,7 +35,13 @@
     <div class="content">
         <div class="content_resize">
             <div class="mainbar">
-                <h1>Bienvenue sur ta page de transfert <span th:text="${user.username}"></span></h1>
+                <h1>Effectuer un virement</h1>
+                <p>Pour effectuer un virement supérieur à 2000€, veuillez l'effectuer en présence de votre conseiller afin qu'il entre le code de virement important</p>
+                    <p>Montant: <input type="number" name="amount" /></p>
+                    <p>IBAN de destination: <input type="text" name="targetIban" /></p>
+                    <p>Code de virement important (facultatif, à remplir par le conseiller) <input type="password" name="code" /></p>
+                    <p><input type="submit" value="Soumettre" id="submitButton"/></p>
+                </form>
             </div>
 
             <div class="sidebar">
@@ -95,5 +101,46 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("submitButton").addEventListener("click", myFunction);
+    function myFunction() {
+        var amount = document.getElementsByName("amount")[0].value;
+        if (!amount) {
+            alert("Merci d'entrer un montant positif");
+            return;
+        }
+        var targetIban = document.getElementsByName("targetIban")[0].value;
+        if (!amount) {
+            alert("Merci d'entrer un compte destinataire du virement");
+            return;
+        }
+        var data = "<transfer>\n";
+        data += "<targetIban>" + targetIban + "</targetIban>\n";
+        data += "<amount>" + amount + "</amount>\n";
+        var code = document.getElementsByName("code")[0].value;
+        if (code) {
+            data += "<code>" + code + "</code>\n";
+        }
+        data += "</transfer>";
+        console.log(data);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                alert(this.responseText);
+            }
+        });
+
+        xhr.open("POST", "http://localhost:8080/user/5/virement");
+        xhr.setRequestHeader("Content-Type", "application/xml");
+        xhr.setRequestHeader("Cache-Control", "no-cache");
+        xhr.setRequestHeader("Postman-Token", "69a303e6-3f8d-4066-8cd1-d6da0718b669");
+
+        xhr.send(data);
+    }
+
+</script>
 </body>
 </html>
