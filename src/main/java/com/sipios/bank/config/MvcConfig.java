@@ -1,5 +1,9 @@
 package com.sipios.bank.config;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
@@ -15,9 +19,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
@@ -40,29 +41,50 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @PostConstruct
     public void registerUsers() {
-        Chat chat = new Chat();
-        chatRepository.save(chat);
+        List<Chat> chats = new ArrayList<>();
+
 
         Role adminRole = createRoleIfNotFound("ROLE_ADMIN");
-        Role userRole = createRoleIfNotFound("ROLE_USER");
-        User test = new User();
-        test.setUsername("test");
-        test.setPassword(passwordEncoder.encode("test"));
-        test.setRoles(Arrays.asList(userRole));
-        test.setChats(Arrays.asList(chat));
-        userRepository.save(test);
-
         User admin = new User();
         admin.setUsername("admin");
         admin.setPassword(passwordEncoder.encode("admin"));
         admin.setRoles(Arrays.asList(adminRole));
-        admin.setChats(Arrays.asList(chat));
+        userRepository.save(admin);
+
+        Role userRole = createRoleIfNotFound("ROLE_USER");
+
+        Chat chat = new Chat();
+        chats.add(chat);
+        chatRepository.save(chat);
+        createUserIfNotFound("test", "test", Arrays.asList(userRole), Arrays.asList(chat), admin);
+
+        Chat chat2 = new Chat();
+        chats.add(chat2);
+        chatRepository.save(chat2);
+        createUserIfNotFound("test2", "test2", Arrays.asList(userRole), Arrays.asList(chat2), admin);
+
+        admin.setChats(chats);
         userRepository.save(admin);
     }
 
     @Transactional
-    private Role createRoleIfNotFound(String name) {
+    private User createUserIfNotFound(String name, String password, List<Role> roles, List<Chat> chats, User advisor) {
+        User user = userRepository.findByUsername(name);
+        if (user == null) {
+            user = new User();
+            user.setUsername(name);
+            user.setPassword(passwordEncoder.encode(password));
+            user.setRoles(roles);
+            user.setChats(chats);
+            user.setAdvisor(advisor);
+            userRepository.save(user);
+        }
 
+        return user;
+    }
+
+    @Transactional
+    private Role createRoleIfNotFound(String name) {
         Role role = roleRepository.findByName(name);
         if (role == null) {
             role = new Role(name);

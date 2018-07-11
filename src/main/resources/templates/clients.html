@@ -39,11 +39,31 @@
         <div class="content_resize">
             <div class="mainbar">
                 <h2>Bienvenue sur ton espace conseiller</h2>
-                <th:block th:each="client : ${user.clients}">
-                    <div class="client">
-                        <span th:text="client.id"></span> | <span th:text="client.username"></span>
-                    </div>
-                </th:block>
+                <p th:if="${error}" class="error">Une erreur vous empêche de voir la liste de vos clients.</p>
+                <table>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Chat</th>
+                        <th>Role</th>
+                    </tr>
+                    <th:block th:each="client : ${clients}">
+                    <tr>
+                        <td th:text="${client.id}"></td>
+                        <td th:text="${client.username}"></td>
+                        <td>
+                            <th:block th:each="chat : ${client.chats}">
+                                <span th:text="${chat.id}"></span>
+                            </th:block>
+                        </td>
+                        <td>
+                            <th:block th:each="role : ${client.roles}">
+                                <span th:text="${role.name}"></span>
+                            </th:block>
+                        </td>
+                    </tr>
+                    </th:block>
+                </table>
             </div>
 
             <div class="sidebar">
@@ -55,7 +75,7 @@
                         <li><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
                         <li><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a th:href="@{/user/{id}/clients(id=${user.id})}">Voir mes clients</a>
+                            <a th:href="@{/user/{id}/clients?advisorId={id}(id=${user.id})}">Voir mes clients</a>
                         </li>
 
                     </ul>
