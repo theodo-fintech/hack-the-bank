@@ -35,8 +35,10 @@
     <div class="content">
         <div class="content_resize">
             <div class="mainbar">
-                <h1>Effectuer un virement</h1>
-                <p>Pour effectuer un virement supérieur à 2000€, veuillez l'effectuer en présence de votre conseiller afin qu'il entre le code de virement important</p>
+                <h2>Effectuer un virement</h2>
+                <p th:if="${transfer == null}">Veullez contacter votre conseiller pour obtenir un compte PREMIUM</p>
+                <form id="form" th:if="${transfer}" th:action="@{/user/{userId}/virement(userId=${user.id})}">
+                    <p>Pour effectuer un virement supérieur à 2000€, veuillez l'effectuer en présence de votre conseiller afin qu'il entre le code de virement important</p>
                     <p>Montant: <input type="number" name="amount" /></p>
                     <p>IBAN de destination: <input type="text" name="targetIban" /></p>
                     <p>Code de virement important (facultatif, à remplir par le conseiller) <input type="password" name="code" /></p>
@@ -102,8 +104,8 @@
     </div>
 </div>
 <script>
-    document.getElementById("submitButton").addEventListener("click", myFunction);
-    function myFunction() {
+    document.getElementById("form").addEventListener("submit", myFunction);
+    function myFunction(event) {
         var amount = document.getElementsByName("amount")[0].value;
         if (!amount) {
             alert("Merci d'entrer un montant positif");
@@ -133,7 +135,7 @@
             }
         });
 
-        xhr.open("POST", "http://localhost:8080/user/5/virement");
+        xhr.open("POST", $("#form").attr( 'action' ));
         xhr.setRequestHeader("Content-Type", "application/xml");
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("Postman-Token", "69a303e6-3f8d-4066-8cd1-d6da0718b669");

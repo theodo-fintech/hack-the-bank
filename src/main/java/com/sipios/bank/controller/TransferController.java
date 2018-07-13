@@ -32,7 +32,10 @@ public class TransferController {
             @PathVariable Long userId
     ) {
         User user = userRepository.getOne(userId);
-        model.addAttribute("transfer", new Transfer());
+        if (user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_USER_SUPER_PREMIUM"))) {
+            model.addAttribute("transfer", new Transfer());
+        }
+
         model.addAttribute("user", user);
 
         return "transfert";
@@ -40,6 +43,10 @@ public class TransferController {
 
     @PostMapping("/user/{userId}/virement")
     public ResponseEntity<?> transferSubmit(@RequestBody String transferBody, @PathVariable Long userId) throws JAXBException, XMLStreamException {
+        if (userRepository.getOne(userId).getRoles().stream().noneMatch(role -> role.getName().equals("ROLE_USER_SUPER_PREMIUM"))) {
+            return ResponseEntity.status(403).body("Vous n'êtes pas un utilisateur super prémium");
+        }
+        
         JAXBContext jc = JAXBContext.newInstance(Transfer.class);
 
         XMLInputFactory xif = XMLInputFactory.newFactory();
