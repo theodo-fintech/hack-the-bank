@@ -51,17 +51,6 @@ public class AccountController {
         return "chat";
     }
 
-    @GetMapping("/user/{userId}/virement")
-    public String transfert(
-        Model model,
-        @PathVariable Long userId
-    ) {
-        User user = userRepository.getOne(userId);
-        model.addAttribute("user", user);
-
-        return "transfert";
-    }
-
     @GetMapping("/user/{userId}/clients")
     @PreAuthorize(value = "hasRole('ADMIN')")
     public String clients(
