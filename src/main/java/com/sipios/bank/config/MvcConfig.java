@@ -52,16 +52,20 @@ public class MvcConfig implements WebMvcConfigurer {
         userRepository.save(admin);
 
         Role userRole = createRoleIfNotFound("ROLE_USER");
+        Role userRolePremium = createRoleIfNotFound("ROLE_USER_PREMIUM");
+        Role userRoleSuperPremium = createRoleIfNotFound("ROLE_USER_SUPER_PREMIUM");
+
+        createUserIfNotFound("test", "test", Arrays.asList(userRole), new ArrayList<>(), admin);
 
         Chat chat = new Chat();
         chats.add(chat);
         chatRepository.save(chat);
-        createUserIfNotFound("test", "test", Arrays.asList(userRole), Arrays.asList(chat), admin);
+        createUserIfNotFound("test2", "test2", Arrays.asList(userRolePremium), Arrays.asList(chat), admin);
 
         Chat chat2 = new Chat();
         chats.add(chat2);
         chatRepository.save(chat2);
-        createUserIfNotFound("test2", "test2", Arrays.asList(userRole), Arrays.asList(chat2), admin);
+        createUserIfNotFound("test3", "test3", Arrays.asList(userRoleSuperPremium), Arrays.asList(chat2), admin);
 
         admin.setChats(chats);
         userRepository.save(admin);

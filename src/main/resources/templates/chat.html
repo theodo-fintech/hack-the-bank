@@ -35,7 +35,8 @@
     <div class="content">
         <div class="content_resize">
             <div class="mainbar">
-                <div>Chat avec ton conseiller</div>
+                <h3 th:if="${!user.chats.empty}">Chat avec ton conseiller</h3>
+                <h3 th:if="${user.chats.empty}">Veullez contacter votre conseiller pour obtenir un compte PREMIUM</h3>
                 <div>
                     <th:block th:each="chat : ${user.chats}">
                         <div class="form">
