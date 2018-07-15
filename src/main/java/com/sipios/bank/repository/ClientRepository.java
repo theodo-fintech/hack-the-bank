@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Transactional
@@ -18,6 +19,7 @@ public class ClientRepository {
     public List<User> getClients(String userid) {
         List<User> clients = manager.createNativeQuery("SELECT * FROM user WHERE  advisor_id = " + userid, User.class)
             .getResultList();
-        return clients;
+
+        return clients.stream().filter(user -> user.getRoles().stream().noneMatch(role -> role.getName().equals("ROLE_SUPER_ADMIN"))).collect(Collectors.toList());
     }
 }

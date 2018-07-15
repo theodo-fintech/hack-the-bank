@@ -4,7 +4,13 @@ import com.sipios.bank.model.User;
 import com.sipios.bank.repository.ClientRepository;
 import com.sipios.bank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,23 +42,7 @@ public class AccountController {
         return "account";
     }
 
-    @GetMapping("/user/{userId}/chat")
-    public String chat(
-        Model model,
-        @PathVariable Long userId,
-        @RequestParam(required = false) Long chatId
-    ) {
-        User user = userRepository.getOne(userId);
-        if (chatId != null) {
-            user.setChats(user.getChats().stream().filter(chat -> Objects.equals(chat.getId(), chatId)).collect(Collectors.toList()));
-        }
-        model.addAttribute("user", user);
-
-        return "chat";
-    }
-
     @GetMapping("/user/{userId}/clients")
-    @PreAuthorize(value = "hasRole('ADMIN')")
     public String clients(
         Model model,
         @PathVariable Long userId,

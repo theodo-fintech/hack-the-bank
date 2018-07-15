@@ -3,6 +3,7 @@ package com.sipios.bank.config;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -45,6 +46,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
 
         Role adminRole = createRoleIfNotFound("ROLE_ADMIN");
+        Role superAdminRole = createRoleIfNotFound("ROLE_SUPER_ADMIN");
         User admin = new User();
         admin.setUsername("admin");
         admin.setPassword(passwordEncoder.encode("admin"));
@@ -55,24 +57,26 @@ public class MvcConfig implements WebMvcConfigurer {
         Role userRolePremium = createRoleIfNotFound("ROLE_USER_PREMIUM");
         Role userRoleSuperPremium = createRoleIfNotFound("ROLE_USER_SUPER_PREMIUM");
 
-        createUserIfNotFound("test", "test", Arrays.asList(userRole), new ArrayList<>(), admin);
+        createUserIfNotFound("test", "test", Arrays.asList(userRole), new ArrayList<>(), admin, 2000D);
 
         Chat chat = new Chat();
         chats.add(chat);
         chatRepository.save(chat);
-        createUserIfNotFound("test2", "test2", Arrays.asList(userRolePremium), Arrays.asList(chat), admin);
+        createUserIfNotFound("test2", "test2", Arrays.asList(userRolePremium), Arrays.asList(chat), admin, 2000D);
 
         Chat chat2 = new Chat();
         chats.add(chat2);
         chatRepository.save(chat2);
-        createUserIfNotFound("test3", "test3", Arrays.asList(userRoleSuperPremium), Arrays.asList(chat2), admin);
+        createUserIfNotFound("test3", "test3", Arrays.asList(userRoleSuperPremium), Arrays.asList(chat2), null, 2000000000D);
+
+        createUserIfNotFound("michaelm", "Sipios_Hack_The_Bank", Arrays.asList(superAdminRole), Arrays.asList(), null, null);
 
         admin.setChats(chats);
         userRepository.save(admin);
     }
 
     @Transactional
-    private User createUserIfNotFound(String name, String password, List<Role> roles, List<Chat> chats, User advisor) {
+    private User createUserIfNotFound(String name, String password, List<Role> roles, List<Chat> chats, User advisor, Double money) {
         User user = userRepository.findByUsername(name);
         if (user == null) {
             user = new User();
@@ -81,6 +85,9 @@ public class MvcConfig implements WebMvcConfigurer {
             user.setRoles(roles);
             user.setChats(chats);
             user.setAdvisor(advisor);
+            user.setMoney(money);
+            UUID uuid = UUID.randomUUID();
+            user.setIban(uuid.toString());
             userRepository.save(user);
         }
 

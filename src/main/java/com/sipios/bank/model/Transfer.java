@@ -8,6 +8,15 @@ public class Transfer {
     private Double amount;
     private String targetIban;
     private String code;
+    private String pinCode;
+
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
+    }
 
     public long getId() {
         return id;
@@ -39,14 +48,5 @@ public class Transfer {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    @Override
-    public String toString() {
-        return "Transfer{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", targetIban='" + targetIban + '\'' +
-                '}';
     }
 }

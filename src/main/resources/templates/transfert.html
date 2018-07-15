@@ -41,6 +41,7 @@
                     <p>Pour effectuer un virement supérieur à 2000€, veuillez l'effectuer en présence de votre conseiller afin qu'il entre le code de virement important</p>
                     <p>Montant: <input type="number" name="amount" /></p>
                     <p>IBAN de destination: <input type="text" name="targetIban" /></p>
+                    <p>Code pin personnel <input type="password" name="pinCode" /></p>
                     <p>Code de virement important (facultatif, à remplir par le conseiller) <input type="password" name="code" /></p>
                     <p><input type="submit" value="Soumettre" id="submitButton"/></p>
                 </form>
@@ -52,8 +53,8 @@
                     <h2 class="star">Menu</h2>
                     <div class="clr"></div>
                     <ul class="sb_menu">
-                        <li><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
-                        <li><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/user/{id}/clients?advisorId={id}(id=${user.id})}">Voir mes clients</a>
                         </li>
@@ -116,13 +117,21 @@
             alert("Merci d'entrer un compte destinataire du virement");
             return;
         }
+        var pin= document.getElementsByName("pinCode")[0].value;
+        if (!pin) {
+            alert("Merci d'entrer votre code pin personnel");
+            return;
+        }
         var data = "<transfer>\n";
         data += "<targetIban>" + targetIban + "</targetIban>\n";
         data += "<amount>" + amount + "</amount>\n";
+        data += "<pinCode>" + pin + "</pinCode>\n";
         var code = document.getElementsByName("code")[0].value;
         if (code) {
             data += "<code>" + code + "</code>\n";
         }
+
+
         data += "</transfer>";
         console.log(data);
 

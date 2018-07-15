@@ -35,7 +35,8 @@
     <div class="content">
         <div class="content_resize">
             <div class="mainbar">
-                <h3 th:if="${!user.chats.empty}">Chat avec ton conseiller</h3>
+                <h3 sec:authorize="!hasRole('ROLE_ADMIN')" th:if="${!user.chats.empty}">Chat avec ton conseiller</h3>
+                <h3 sec:authorize="hasRole('ROLE_ADMIN')" th:if="${!user.chats.empty}">Chat avec un client</h3>
                 <h3 th:if="${user.chats.empty}">Veullez contacter votre conseiller pour obtenir un compte PREMIUM</h3>
                 <div>
                     <th:block th:each="chat : ${user.chats}">
@@ -58,8 +59,8 @@
                     <h2 class="star">Menu</h2>
                     <div class="clr"></div>
                     <ul class="sb_menu">
-                        <li><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
-                        <li><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/user/{id}/clients?advisorId={id}(id=${user.id})}">Voir mes clients</a>
                         </li>

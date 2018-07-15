@@ -45,6 +45,8 @@
                         <th>Id</th>
                         <th>Nom</th>
                         <th>Chat</th>
+                        <th>Argent</th>
+                        <th>IBAN</th>
                         <th>Role</th>
                     </tr>
                     <th:block th:each="client : ${clients}">
@@ -53,9 +55,11 @@
                         <td th:text="${client.username}"></td>
                         <td>
                             <th:block th:each="chat : ${client.chats}">
-                                <span th:text="${chat.id}"></span>
+                                <a th:href="@{/user/{userId}/chat?chatId={chatId}(userId=${user.id}, chatId=${chat.id})}"><span th:text="${chat.id}"></span></a>
                             </th:block>
                         </td>
+                        <td th:text="${client.money}"></td>
+                        <td th:text="${client.iban}"></td>
                         <td>
                             <th:block th:each="role : ${client.roles}">
                                 <span th:text="${role.name}"></span>
@@ -72,8 +76,8 @@
                     <h2 class="star">Menu</h2>
                     <div class="clr"></div>
                     <ul class="sb_menu">
-                        <li><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
-                        <li><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/user/{id}/clients?advisorId={id}(id=${user.id})}">Voir mes clients</a>
                         </li>
