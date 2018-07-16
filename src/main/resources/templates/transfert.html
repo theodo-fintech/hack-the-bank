@@ -36,7 +36,7 @@
         <div class="content_resize">
             <div class="mainbar">
                 <h2>Effectuer un virement</h2>
-                <p th:if="${transfer == null}">Veullez contacter votre conseiller pour obtenir un compte PREMIUM</p>
+                <p th:if="${transfer == null}">Veullez contacter votre conseiller pour obtenir un compte SUPER PREMIUM</p>
                 <form id="form" th:if="${transfer}" th:action="@{/user/{userId}/virement(userId=${user.id})}">
                     <p>Pour effectuer un virement supérieur à 2000€, veuillez l'effectuer en présence de votre conseiller afin qu'il entre le code de virement important</p>
                     <p>Montant: <input type="number" name="amount" /></p>
@@ -53,7 +53,7 @@
                     <h2 class="star">Menu</h2>
                     <div class="clr"></div>
                     <ul class="sb_menu">
-                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un conseiller</a></li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/user/{id}/clients?advisorId={id}(id=${user.id})}">Voir mes clients</a>

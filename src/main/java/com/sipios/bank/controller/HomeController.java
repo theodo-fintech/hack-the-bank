@@ -50,6 +50,6 @@ public class HomeController {
         model.addAttribute("loginError", true);
         String username = ((MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         User user = userRepository.findByUsername(username);
-        return "redirect:/user/" + user.getId() + "/account";
+        return "redirect:/user/" + user.getId() + "/compte";
     }
 }

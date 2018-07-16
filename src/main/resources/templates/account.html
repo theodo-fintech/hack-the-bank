@@ -32,13 +32,22 @@
                 <div id="coin-slider"> <a href="#"><img src="/images/slide1.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="/images/slide2.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="/images/slide3.jpg" width="927" height="323" alt="" /> </a> </div>
                 <div class="clr"></div>
             </div>
-            <div class="clr"></div>
+            <div class="clr">
+                <p>dqsd</p>
+            </div>
         </div>
     </div>
     <div class="content">
         <div class="content_resize">
             <div class="mainbar">
-                <h2>Bienvenue sur ton espace personnel <span th:text="${user.username}"></span></h2>
+                <h2>Vos informations personnelles</h2>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <p>En tant que conseiller et administrateur système, vous avez reçu le jour de votre arrivée:</p>
+                    <ul>
+                        <li>Votre nom d'utilisateur du FTP sécurisé 54.224.192.37</li>
+                        <li>Le mot de passe de votre FTP sécurisé 54.224.192.37</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="sidebar">
@@ -47,7 +56,7 @@
                     <h2 class="star">Menu</h2>
                     <div class="clr"></div>
                     <ul class="sb_menu">
-                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un corneiller</a></li>
+                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un conseiller</a></li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
                             <a th:href="@{/user/{id}/clients?advisorId={id}(id=${user.id})}">Voir mes clients</a>
@@ -99,5 +108,25 @@
         </div>
     </div>
 </div>
+<script>
+    function loadAccount() {
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+               var user = this.responseText;
+            }
+        });
+
+        xhr.open("GET", "http://localhost:8080/user/9/accountData");
+        xhr.setRequestHeader("Cache-Control", "no-cache");
+        xhr.setRequestHeader("Postman-Token", "e44c75da-a625-417f-88d1-b532e992f57c");
+
+        xhr.send();
+    }
+
+    window.onload = loadAccount;
+</script>
 </body>
 </html>

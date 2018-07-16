@@ -20,6 +20,8 @@ public class User {
 
     private String password;
 
+    private String encryptedCode;
+
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
@@ -122,5 +124,13 @@ public class User {
 
     public void setAdvisor(User advisor) {
         this.advisor = advisor;
+    }
+
+    public String getEncryptedCode() {
+        return encryptedCode;
+    }
+
+    public void setEncryptedCode(String encryptedCode) {
+        this.encryptedCode = encryptedCode;
     }
 }

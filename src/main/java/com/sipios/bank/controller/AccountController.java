@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +32,7 @@ public class AccountController {
     @Autowired
     private ClientRepository clientRepository;
 
-    @GetMapping("/user/{userId}/account")
+    @GetMapping("/user/{userId}/compte")
     public String userHome(
         Model model,
         @PathVariable Long userId
@@ -40,6 +41,16 @@ public class AccountController {
         model.addAttribute("user", user);
 
         return "account";
+    }
+
+
+    @GetMapping("/user/{userId}/accountData")
+    public ResponseEntity<?> getAccountData(
+            @PathVariable Long userId
+    ) {
+        User user = userRepository.getOne(userId);
+        user.setRoles(new ArrayList<>());
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/user/{userId}/clients")
