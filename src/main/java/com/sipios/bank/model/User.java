@@ -46,6 +46,26 @@ public class User {
     @ManyToOne
     private User advisor;
 
+    private Double money;
+
+    private String iban;
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+
     //standard getters and setters
 
     public Long getId() {

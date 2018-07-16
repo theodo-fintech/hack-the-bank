@@ -15,12 +15,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.headers().frameOptions().sameOrigin().and()
                 .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/", "/static/**/*", "/css/**/*", "/js/**/*", "/images/**/*").permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/user/*/clients", "/user/*/clients/**").hasRole("ADMIN")
                 .antMatchers("/restricted/**").hasRole("USER")
+
+                .antMatchers("/h2", "/h2/**").hasRole("SUPER_ADMIN")
                 .anyRequest().authenticated()
                 .and()
             .formLogin().loginPage("/se-connecter").failureUrl("/login-error").defaultSuccessUrl("/user-redirect")
