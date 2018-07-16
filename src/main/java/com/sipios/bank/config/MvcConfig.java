@@ -57,7 +57,11 @@ public class MvcConfig implements WebMvcConfigurer {
         Role userRole = createRoleIfNotFound("ROLE_USER");
         Role userRolePremium = createRoleIfNotFound("ROLE_USER_PREMIUM");
         Role userRoleSuperPremium = createRoleIfNotFound("ROLE_USER_SUPER_PREMIUM");
-        List<Long> ids = Arrays.asList(13L, 59L, 743L, 930L, 1390L, 1578L, 1739L, 2003L, 2198L, 2340L, 2603L, 3029L, 3239L);
+        List<Long> ids = Arrays.asList(
+            13L, 59L, 743L, 930L, 1390L, 1578L, 1739L, 2003L, 2198L, 2340L,
+            2603L, 3029L, 3239L, 3475L, 3610L, 3823L, 4000L, 4129L, 4444L, 4511L,
+            12603L, 13029L, 13239L, 13475L, 13610L, 13823L, 14000L, 14129L, 14444L, 14511L
+        );
 
         ids.forEach(id -> {
             setUpUser("User" + id, id, chats, userRole, admin, userRolePremium);

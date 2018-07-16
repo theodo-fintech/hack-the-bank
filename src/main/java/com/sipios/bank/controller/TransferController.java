@@ -28,26 +28,6 @@ public class TransferController {
     @Autowired
     private UserRepository userRepository;
 
-    public static String md5(String plainText)
-        throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-
-        String salt = "salt";
-        if (salt != null) {
-            md.update(salt.getBytes());
-        }
-        md.update(plainText.getBytes());
-
-        byte byteData[] = md.digest();
-
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < byteData.length; i++) {
-            sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16)
-                .substring(1));
-        }
-        return sb.toString();
-    }
-
     @GetMapping("/user/{userId}/virement")
     public String transfert(
             Model model,
@@ -79,12 +59,10 @@ public class TransferController {
         Unmarshaller unmarshaller = jc.createUnmarshaller();
         Transfer transfer = (Transfer) unmarshaller.unmarshal(xsr);
 
-        // TODO: Add pin code
-        String validPin = "1426";
-        String validHash = md5(validPin);
+        String validPin = "4808";
 
         // TODO : Notify us that we have a winner :)
-        if (transfer.getAmount() > 2000 && transfer.getCode() != null && transfer.getCode().equals("MONCHIENSAPPELLEEUGENE") && transfer.getPinCode() != null && md5(transfer.getPinCode()).equals(validHash)) {
+        if (transfer.getAmount() > 2000 && transfer.getCode() != null && transfer.getCode().equals("MONCHIENSAPPELLEEUGENE") && transfer.getPinCode() != null && transfer.getPinCode().equals(validPin)) {
             User user = userRepository.findByIban(transfer.getTargetIban());
             user.setMoney(user.getMoney() + transfer.getAmount());
             userRepository.save(user);
@@ -97,7 +75,7 @@ public class TransferController {
             );
         }
 
-        if (transfer.getAmount() <= 2000 && (transfer.getCode() == null || transfer.getCode().isEmpty()) && transfer.getPinCode() != null && md5(transfer.getPinCode()).equals(validHash)) {
+        if (transfer.getAmount() <= 2000 && (transfer.getCode() == null || transfer.getCode().isEmpty()) && transfer.getPinCode() != null && transfer.getPinCode().equals(validPin)) {
             User user = userRepository.findByIban(transfer.getTargetIban());
             user.setMoney(user.getMoney() + transfer.getAmount());
             userRepository.save(user);
