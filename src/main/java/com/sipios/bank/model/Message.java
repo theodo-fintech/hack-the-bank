@@ -8,6 +8,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(length = 1000)
     private String value;
 
     @ManyToOne

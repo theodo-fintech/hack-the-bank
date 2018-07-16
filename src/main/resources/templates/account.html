@@ -41,6 +41,10 @@
         <div class="content_resize">
             <div class="mainbar">
                 <h2>Vos informations personnelles</h2>
+                <div>Nom : <span id="name"></span></div>
+                <div>Argent : <span id="money"></span></div>
+                <div>IBAN : <span id="iban"></span></div>
+
                 <div sec:authorize="hasRole('ROLE_ADMIN')">
                     <p>En tant que conseiller et administrateur système, vous avez reçu le jour de votre arrivée:</p>
                     <ul>
@@ -116,7 +120,10 @@
 
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-               var user = this.responseText;
+                var user = JSON.parse(this.responseText);
+                $("#name").text(user.username);
+                $("#money").text(user.money);
+                $("#iban").text(user.iban);
             }
         });
 
