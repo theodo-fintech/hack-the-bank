@@ -19,7 +19,7 @@ public class User {
 
     private String password;
 
-    private String encryptedCode;
+    private String pinCode;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -125,11 +125,11 @@ public class User {
         this.advisor = advisor;
     }
 
-    public String getEncryptedCode() {
-        return encryptedCode;
+    public String getPinCode() {
+        return pinCode;
     }
 
-    public void setEncryptedCode(String encryptedCode) {
-        this.encryptedCode = encryptedCode;
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
     }
 }

@@ -1,5 +1,8 @@
 package com.sipios.bank.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.sipios.bank.model.User;
 import com.sipios.bank.repository.ClientRepository;
 import com.sipios.bank.repository.UserRepository;
@@ -44,13 +47,19 @@ public class AccountController {
     }
 
 
-    @GetMapping("/user/{userId}/accountData")
-    public ResponseEntity<?> getAccountData(
+    @GetMapping(value = "/user/{userId}/accountData", produces = "application/json")
+    public ResponseEntity<String> getAccountData(
             @PathVariable Long userId
-    ) {
+    ) throws JsonProcessingException {
         User user = userRepository.getOne(userId);
         user.setRoles(new ArrayList<>());
-        return ResponseEntity.ok(user);
+        user.setAdvisor(null);
+        user.setChats(new ArrayList<>());
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+// do various things, perhaps:
+        String someJsonString = mapper.writeValueAsString(user);
+        return ResponseEntity.ok(someJsonString);
     }
 
     @GetMapping("/user/{userId}/clients")
