@@ -108,7 +108,8 @@
         </div>
     </div>
 </div>
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     function loadAccount() {
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -119,7 +120,7 @@
             }
         });
 
-        xhr.open("GET", "http://localhost:8080/user/9/accountData");
+        xhr.open("GET", "http://localhost:8080/user/ "+ [[${user.id}]] +"/accountData");
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("Postman-Token", "e44c75da-a625-417f-88d1-b532e992f57c");
 
@@ -127,6 +128,7 @@
     }
 
     window.onload = loadAccount;
+    /*]]>*/
 </script>
 </body>
 </html>

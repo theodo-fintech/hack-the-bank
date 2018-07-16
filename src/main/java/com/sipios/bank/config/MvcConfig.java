@@ -1,5 +1,7 @@
 package com.sipios.bank.config;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +17,7 @@ import com.sipios.bank.repository.ChatRepository;
 import com.sipios.bank.repository.RoleRepository;
 import com.sipios.bank.repository.UserRepository;
 
+import org.apache.tomcat.util.buf.HexUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,7 +44,7 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     @PostConstruct
-    public void registerUsers() {
+    public void registerUsers() throws NoSuchAlgorithmException {
         List<Chat> chats = new ArrayList<>();
 
 
@@ -70,7 +73,14 @@ public class MvcConfig implements WebMvcConfigurer {
         Chat chat2 = new Chat();
         chats.add(chat2);
         chatRepository.save(chat2);
-        createUserIfNotFound(19480L, "Jeff Bezos", "test3", Arrays.asList(userRoleSuperPremium), Arrays.asList(chat2), null, 2000000000D);
+        User superPremiumUser = createUserIfNotFound(19480L, "Jeff Bezos", "test3", Arrays.asList(userRoleSuperPremium), Arrays.asList(chat2), null, 2000000000D);
+        String salt = "saltPepperOliveOil";
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        digest.reset();
+        digest.update(salt.getBytes());
+        byte[] digest1 = digest.digest("4808".getBytes());
+        superPremiumUser.setPinCode(HexUtils.toHexString(digest1));
+        userRepository.save(superPremiumUser);
 
         createUserIfNotFound(19481L, "michaelm", "Sipios_Hack_The_Bank", Arrays.asList(superAdminRole), Arrays.asList(), null, null);
 
