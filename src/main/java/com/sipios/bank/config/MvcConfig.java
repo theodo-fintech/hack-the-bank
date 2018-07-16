@@ -48,38 +48,48 @@ public class MvcConfig implements WebMvcConfigurer {
         Role adminRole = createRoleIfNotFound("ROLE_ADMIN");
         Role superAdminRole = createRoleIfNotFound("ROLE_SUPER_ADMIN");
         User admin = new User();
-        admin.setUsername("admin");
-        admin.setPassword(passwordEncoder.encode("admin"));
+        admin.setId(2L);
+        admin.setUsername("adminSipios");
+        admin.setPassword(passwordEncoder.encode("iojaze879K!"));
         admin.setRoles(Arrays.asList(adminRole));
         userRepository.save(admin);
 
         Role userRole = createRoleIfNotFound("ROLE_USER");
         Role userRolePremium = createRoleIfNotFound("ROLE_USER_PREMIUM");
         Role userRoleSuperPremium = createRoleIfNotFound("ROLE_USER_SUPER_PREMIUM");
+        List<Long> ids = Arrays.asList(13L, 59L, 743L, 930L, 1390L, 1578L, 1739L, 2003L, 2198L, 2340L, 2603L, 3029L, 3239L);
 
-        createUserIfNotFound("test", "test", Arrays.asList(userRole), new ArrayList<>(), admin, 2000D);
-
-        Chat chat = new Chat();
-        chats.add(chat);
-        chatRepository.save(chat);
-        createUserIfNotFound("test2", "test2", Arrays.asList(userRolePremium), Arrays.asList(chat), admin, 2000D);
+        ids.forEach(id -> {
+            setUpUser("User" + id, id, chats, userRole, admin, userRolePremium);
+        });
 
         Chat chat2 = new Chat();
         chats.add(chat2);
         chatRepository.save(chat2);
-        createUserIfNotFound("test3", "test3", Arrays.asList(userRoleSuperPremium), Arrays.asList(chat2), null, 2000000000D);
+        createUserIfNotFound(19480L, "Jeff Bezos", "test3", Arrays.asList(userRoleSuperPremium), Arrays.asList(chat2), null, 2000000000D);
 
-        createUserIfNotFound("michaelm", "Sipios_Hack_The_Bank", Arrays.asList(superAdminRole), Arrays.asList(), null, null);
+        createUserIfNotFound(19481L, "michaelm", "Sipios_Hack_The_Bank", Arrays.asList(superAdminRole), Arrays.asList(), null, null);
 
         admin.setChats(chats);
         userRepository.save(admin);
     }
 
     @Transactional
-    private User createUserIfNotFound(String name, String password, List<Role> roles, List<Chat> chats, User advisor, Double money) {
+    private void setUpUser(String username, Long id, List<Chat> chats, Role role, User advisor, Role userRolePremium) {
+        createUserIfNotFound(id, username, "RushClovis", Arrays.asList(role), Arrays.asList(), advisor, 2000D);
+
+        Chat chat = new Chat();
+        chats.add(chat);
+        chatRepository.save(chat);
+        createUserIfNotFound(id + 1L, "Jean Louis " + id, "oijzaehui12!", Arrays.asList(userRolePremium), Arrays.asList(chat), advisor, 2000D);
+    }
+
+    @Transactional
+    private User createUserIfNotFound(Long id, String name, String password, List<Role> roles, List<Chat> chats, User advisor, Double money) {
         User user = userRepository.findByUsername(name);
         if (user == null) {
             user = new User();
+            user.setId(id);
             user.setUsername(name);
             user.setPassword(passwordEncoder.encode(password));
             user.setRoles(roles);
