@@ -74,12 +74,7 @@ public class MvcConfig implements WebMvcConfigurer {
         chats.add(chat2);
         chatRepository.save(chat2);
         User superPremiumUser = createUserIfNotFound(19480L, "Jeff Bezos", "test3", Arrays.asList(userRoleSuperPremium), Arrays.asList(chat2), null, 2000000000D);
-        String salt = "saltPepperOliveOil";
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        digest.reset();
-        digest.update(salt.getBytes());
-        byte[] digest1 = digest.digest("4808".getBytes());
-        superPremiumUser.setPinCode(HexUtils.toHexString(digest1));
+        superPremiumUser.setPinCode("858d8ca6a71b05b5b90cff28a00ae5ff310b0ecae5a1e6e87df706955939bc50");
         userRepository.save(superPremiumUser);
 
         createUserIfNotFound(19481L, "michaelm", "Sipios_Hack_The_Bank", Arrays.asList(superAdminRole), Arrays.asList(), null, null);
