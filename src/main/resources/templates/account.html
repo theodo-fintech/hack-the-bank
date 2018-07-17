@@ -60,6 +60,9 @@
                     <h2 class="star">Menu</h2>
                     <div class="clr"></div>
                     <ul class="sb_menu">
+                        <li>
+                            <a th:href="@{/user/{id}/compte?advisorId={id}(id=${user.id})}">Mon compte</a>
+                        </li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un conseiller</a></li>
                         <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
@@ -127,7 +130,7 @@
             }
         });
 
-        xhr.open("GET", "http://localhost:8080/user/"+ [[${user.id}]] +"/accountData");
+        xhr.open("GET", "/user/"+ [[${user.id}]] +"/accountData");
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("Postman-Token", "e44c75da-a625-417f-88d1-b532e992f57c");
 
