@@ -22,6 +22,8 @@ public class Message {
     @CreatedDate
     private Date date;
 
+    private Boolean isFromAdvisor;
+
     public Date getDate() {
         return date;
     }
@@ -52,5 +54,13 @@ public class Message {
 
     public void setChat(Chat chat) {
         this.chat = chat;
+    }
+
+    public Boolean getFromAdvisor() {
+        return isFromAdvisor;
+    }
+
+    public void setFromAdvisor(Boolean fromAdvisor) {
+        isFromAdvisor = fromAdvisor;
     }
 }
