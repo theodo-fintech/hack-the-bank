@@ -54,7 +54,7 @@ public class ChatController {
             user.setChats(user.getChats().stream().filter(chat -> Objects.equals(chat.getId(), chatId)).collect(Collectors.toList()));
         }
         user.getChats().forEach(chat -> {
-            chat.getMessages().removeIf(message -> message.getDate().toInstant().plusSeconds(30L).isBefore(Instant.now()));
+            chat.getMessages().removeIf(message -> message.getDate().toInstant().plusSeconds(60L).isBefore(Instant.now()));
         } );
         model.addAttribute("user", user);
 
