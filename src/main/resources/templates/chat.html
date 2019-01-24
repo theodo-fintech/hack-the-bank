@@ -38,10 +38,12 @@
                 <h3 sec:authorize="!hasRole('ROLE_ADMIN')" th:if="${!user.chats.empty}">Chat avec ton conseiller</h3>
                 <h3 sec:authorize="hasRole('ROLE_ADMIN')" th:if="${!user.chats.empty}">Chat avec un client</h3>
                 <h3 th:if="${user.chats.empty}">Veullez contacter votre conseiller pour obtenir un compte PREMIUM</h3>
+                <h3 th:if="${!user.chats.empty}">Pour des raisons de sécurité, les messages seront supprimés après 30 secondes</h3>
                 <div>
                     <th:block th:each="chat : ${user.chats}">
                         <div class="form">
                         <th:block th:each="message : ${chat.messages}">
+                            <div class="date" th:text="${message.date}">...</div>
                             <div class="message" th:utext="${message.value}">...</div>
                         </th:block>
                         <form th:id="@{form-chat-id-{id}(id=${chat.id})}" th:action="@{/chat/{id}(id=${chat.id})}" method="post">

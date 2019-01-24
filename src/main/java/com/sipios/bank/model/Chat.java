@@ -1,7 +1,10 @@
 package com.sipios.bank.model;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 public class Chat {

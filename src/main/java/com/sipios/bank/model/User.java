@@ -3,13 +3,13 @@ package com.sipios.bank.model;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.*;
-;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
     @Id
     private Long id;

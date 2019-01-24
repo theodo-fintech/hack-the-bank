@@ -1,8 +1,13 @@
 package com.sipios.bank.model;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,6 +18,17 @@ public class Message {
 
     @ManyToOne
     private Chat chat;
+
+    @CreatedDate
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public Long getId() {
         return id;
