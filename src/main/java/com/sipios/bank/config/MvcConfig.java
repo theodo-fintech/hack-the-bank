@@ -1,5 +1,6 @@
 package com.sipios.bank.config;
 
+import com.github.javafaker.Faker;
 import com.sipios.bank.model.Chat;
 import com.sipios.bank.model.Role;
 import com.sipios.bank.model.User;
@@ -67,7 +68,8 @@ public class MvcConfig implements WebMvcConfigurer {
             12603L, 13029L, 13239L, 13475L, 13610L, 13823L, 14000L, 14129L, 14444L, 14511L
         );
 
-        ids.forEach(id -> setUpUser("User" + id, id, chats, userRole, admin, userRolePremium));
+
+        ids.forEach(id -> setUpUser(id, chats, userRole, admin, userRolePremium));
 
         Chat chat2 = new Chat();
         chats.add(chat2);
@@ -83,13 +85,16 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     @Transactional
-    private void setUpUser(String username, Long id, List<Chat> chats, Role role, User advisor, Role userRolePremium) {
+    private void setUpUser(Long id, List<Chat> chats, Role role, User advisor, Role userRolePremium) {
+        Faker faker = new Faker();
+        String username = faker.name().fullName();
+        System.out.println(username);
         createUserIfNotFound(id, username, "RushClovis", Arrays.asList(role), Arrays.asList(), advisor, 2000D);
 
         Chat chat = new Chat();
         chats.add(chat);
         chatRepository.save(chat);
-        createUserIfNotFound(id + 1L, "Jean Louis " + id, "oijzaehui12!", Arrays.asList(userRolePremium), Arrays.asList(chat), advisor, 2000D);
+        createUserIfNotFound(id + 1L, faker.name().fullName(), "oijzaehui12!", Arrays.asList(userRolePremium), Arrays.asList(chat), advisor, 2000D);
     }
 
     @Transactional
