@@ -1,31 +1,32 @@
 package com.sipios.bank.config;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
-
+import com.github.javafaker.Faker;
 import com.sipios.bank.model.Chat;
 import com.sipios.bank.model.Role;
 import com.sipios.bank.model.User;
 import com.sipios.bank.repository.ChatRepository;
 import com.sipios.bank.repository.RoleRepository;
 import com.sipios.bank.repository.UserRepository;
-
-import org.apache.tomcat.util.buf.HexUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
+
+    public static String adminUsername = "adminSipios";
+
+    public static String adminPassword= "iojaze879K!";
 
     @Autowired
     private RoleRepository roleRepository;
@@ -39,6 +40,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
     }
@@ -52,8 +54,8 @@ public class MvcConfig implements WebMvcConfigurer {
         Role superAdminRole = createRoleIfNotFound("ROLE_SUPER_ADMIN");
         User admin = new User();
         admin.setId(2L);
-        admin.setUsername("adminSipios");
-        admin.setPassword(passwordEncoder.encode("iojaze879K!"));
+        admin.setUsername(adminUsername);
+        admin.setPassword(passwordEncoder.encode(adminPassword));
         admin.setRoles(Arrays.asList(adminRole));
         userRepository.save(admin);
 
@@ -66,9 +68,8 @@ public class MvcConfig implements WebMvcConfigurer {
             12603L, 13029L, 13239L, 13475L, 13610L, 13823L, 14000L, 14129L, 14444L, 14511L
         );
 
-        ids.forEach(id -> {
-            setUpUser("User" + id, id, chats, userRole, admin, userRolePremium);
-        });
+
+        ids.forEach(id -> setUpUser(id, chats, userRole, admin, userRolePremium));
 
         Chat chat2 = new Chat();
         chats.add(chat2);
@@ -84,13 +85,16 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     @Transactional
-    private void setUpUser(String username, Long id, List<Chat> chats, Role role, User advisor, Role userRolePremium) {
+    private void setUpUser(Long id, List<Chat> chats, Role role, User advisor, Role userRolePremium) {
+        Faker faker = new Faker();
+        String username = faker.name().fullName();
+        System.out.println(username);
         createUserIfNotFound(id, username, "RushClovis", Arrays.asList(role), Arrays.asList(), advisor, 2000D);
 
         Chat chat = new Chat();
         chats.add(chat);
         chatRepository.save(chat);
-        createUserIfNotFound(id + 1L, "Jean Louis " + id, "oijzaehui12!", Arrays.asList(userRolePremium), Arrays.asList(chat), advisor, 2000D);
+        createUserIfNotFound(id + 1L, faker.name().fullName(), "oijzaehui12!", Arrays.asList(userRolePremium), Arrays.asList(chat), advisor, 2000D);
     }
 
     @Transactional

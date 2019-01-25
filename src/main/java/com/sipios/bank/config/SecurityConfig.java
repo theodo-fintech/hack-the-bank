@@ -2,7 +2,6 @@ package com.sipios.bank.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,7 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/restricted/**").hasRole("USER")
 
                 .antMatchers("/h2", "/h2/**").hasRole("SUPER_ADMIN")
-                .anyRequest().authenticated()
+                .antMatchers("/user", "/user/**", "/user/**/**").authenticated()
+                .antMatchers("/chat", "/chat/**", "/chat/**/**").authenticated()
                 .and()
             .formLogin().loginPage("/se-connecter").failureUrl("/login-error").defaultSuccessUrl("/user-redirect")
                 .permitAll()

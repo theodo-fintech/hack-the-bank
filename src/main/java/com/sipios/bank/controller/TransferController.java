@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.websocket.Session;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -18,9 +20,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
 
 @Controller
 public class TransferController {
@@ -44,7 +43,7 @@ public class TransferController {
     }
 
     @PostMapping("/user/{userId}/virement")
-    public ResponseEntity<?> transferSubmit(@RequestBody String transferBody, @PathVariable Long userId) throws JAXBException, XMLStreamException, NoSuchAlgorithmException {
+    public ResponseEntity<String> transferSubmit(@RequestBody String transferBody, @PathVariable Long userId) throws JAXBException, XMLStreamException {
         if (userRepository.getOne(userId).getRoles().stream().noneMatch(role -> role.getName().equals("ROLE_USER_SUPER_PREMIUM"))) {
             return ResponseEntity.status(403).body("Vous n'êtes pas un utilisateur super prémium");
         }
@@ -63,12 +62,9 @@ public class TransferController {
 
         // TODO : Notify us that we have a winner :)
         if (transfer.getAmount() > 2000 && transfer.getCode() != null && transfer.getCode().equals("MONCHIENSAPPELLEEUGENE") && transfer.getPinCode() != null && transfer.getPinCode().equals(validPin)) {
-            User user = userRepository.findByIban(transfer.getTargetIban());
-            user.setMoney(user.getMoney() + transfer.getAmount());
-            userRepository.save(user);
             return ResponseEntity.ok(
                 String.format(
-                    "Le virement de montant %s€ à destination de %s a été accepté",
+                    "Félicitation ! Le virement de montant %s€ à destination de %s a été accepté",
                     transfer.getAmount(),
                     transfer.getTargetIban()
                 )
@@ -76,9 +72,6 @@ public class TransferController {
         }
 
         if (transfer.getAmount() <= 2000 && (transfer.getCode() == null || transfer.getCode().isEmpty()) && transfer.getPinCode() != null && transfer.getPinCode().equals(validPin)) {
-            User user = userRepository.findByIban(transfer.getTargetIban());
-            user.setMoney(user.getMoney() + transfer.getAmount());
-            userRepository.save(user);
             return ResponseEntity.ok(
                 String.format(
                     "Le virement de montant %s€ à destination de %s a été accepté",

@@ -19,6 +19,7 @@
                 <ul th:if="${maintenanceDisabled}">
                     <li class="active"><a href="/"><span>Accueil</span></a></li>
                     <li sec:authorize="!isAuthenticated()"><a href="/se-connecter"><span>Déjà client?</span></a></li>
+                    <li sec:authorize="isAuthenticated()"><a href="/user-redirect"><span>Mon Compte</span></a></li>
                 </ul>
             </div>
             <div class="logo">
@@ -70,6 +71,9 @@
                     </div>
                     <div class="clr"></div>
                 </div>
+                <div>
+                    <video style="width: 100%;"controls src="/videos/commercial.mp4"></video>
+                </div>
             </div>
             <div class="sidebar">
                 <div class="clr"></div>
@@ -79,6 +83,7 @@
                     <ul class="sb_menu">
                         <li><a href="/">Accueil</a></li>
                         <li sec:authorize="!isAuthenticated()"><a href="/se-connecter">Déjà client?</a></li>
+                        <li sec:authorize="isAuthenticated()"><a href="/user-redirect"><span>Mon Compte</span></a></li>
                     </ul>
                 </div>
                 <div class="gadget" th:if="${maintenanceDisabled}">
