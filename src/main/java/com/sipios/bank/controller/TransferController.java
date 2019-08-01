@@ -74,7 +74,7 @@ public class TransferController {
         if (transfer.getAmount() <= 2000 && (transfer.getCode() == null || transfer.getCode().isEmpty()) && transfer.getPinCode() != null && transfer.getPinCode().equals(validPin)) {
             return ResponseEntity.ok(
                 String.format(
-                    "Le virement de montant %s€ à destination de %s a été accepté",
+                    "Le virement de montant %s€ à destination de %s a été accepté.\n Bravo! Vous venez de passer à l'étape 8.",
                     transfer.getAmount(),
                     transfer.getTargetIban()
                 )
