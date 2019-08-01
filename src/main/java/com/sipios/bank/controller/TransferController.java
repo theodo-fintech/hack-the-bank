@@ -64,7 +64,7 @@ public class TransferController {
         if (transfer.getAmount() > 2000 && transfer.getCode() != null && transfer.getCode().equals("MONCHIENSAPPELLEEUGENE") && transfer.getPinCode() != null && transfer.getPinCode().equals(validPin)) {
             return ResponseEntity.ok(
                 String.format(
-                    "Félicitation ! Le virement de montant %s€ à destination de %s a été accepté",
+                    "Félicitation ! Le virement de montant %s€ à destination de %s a été accepté.\n Vous venez de réussir le Dojo!\n Merci d'avoir participé. N'hesitez pas à vous vanter de votre victoire.",
                     transfer.getAmount(),
                     transfer.getTargetIban()
                 )
