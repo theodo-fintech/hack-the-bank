@@ -1,5 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Sipios Bank</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,93 +13,100 @@
     <script type="text/javascript" src="/js/script.js"></script>
     <script type="text/javascript" src="/js/coin-slider.min.js"></script>
 </head>
-<body>
-<div class="main indexpage">
-    <div class="header">
-        <div class="header_resize">
-            <div class="menu_nav">
-                <ul th:if="${maintenanceDisabled}">
-                    <li class="active"><a href="/"><span>Accueil</span></a></li>
-                    <li><a href="/se-connecter"><span>Déjà client?</span></a></li>
-                </ul>
-            </div>
-            <div class="logo">
-                <h1><a href="/"><span>Sipios Bank</span> <small>L'investissement sain, aujourd'hui</small></a></h1>
-            </div>
-            <div class="clr"></div>
-            <div class="slider">
-                <div id="coin-slider"> <a href="#"><img src="images/slide1.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="images/slide2.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="images/slide3.jpg" width="927" height="323" alt="" /> </a> </div>
-                <div class="clr"></div>
-            </div>
-            <div class="clr"></div>
-        </div>
-    </div>
-    <div class="content">
-        <div class="content_resize">
-            <h1>Connexion Sécurisée</h1>
-            <p>Example user: user / password</p>
-            <p th:if="${loginError}" class="error">Mauvais nom d'utilisateur ou mdp</p>
-            <form th:action="@{/se-connecter}" method="post">
-                <label for="username">Nom d'utilisateur</label>:
-                <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-                <label for="password">Mot de passe</label>:
-                <input type="password" id="password" name="password" /> <br />
-                <input type="submit" value="Se connecter" />
-            </form>
-            <div class="sidebar">
-                <div class="clr"></div>
-                <div class="gadget" th:if="${maintenanceDisabled}">
-                    <h2 class="star">Menu</h2>
-                    <div class="clr"></div>
-                    <ul class="sb_menu">
-                        <li><a href="/">Accueil</a></li>
-                        <li><a href="/se-connecter">Déjà client?</a></li>
-                    </ul>
-                </div>
-                <div class="gadget" th:if="${maintenanceDisabled}">
-                    <h2 class="star"><span>Sponsors</span></h2>
-                    <div class="clr"></div>
-                    <ul class="ex_menu">
-                        <li>Caïman Corp<br />
-                            Des investissements paradisiaques</li>
-                        <li>Laundering SARL<br />
-                            Investissez dans des commerces locaux</li>
-                        <li>Insider Trading Limited<br />
-                            Tout savoir avant tout le monde</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="clr"></div>
-        </div>
-    </div>
-    <div class="fbg">
-        <div class="fbg_resize">
-            <div class="col c3">
-                <h2><span>Nos</span> Services</h2>
-                <p>Nous gérons vos comptes en banques et vos investissements comme si c'était les notres</p>
-                <ul class="fbg_ul">
-                    <li>Une réponse rapide à vos demandes (2 semaines maximum)</li>
-                    <li>Une performance hors du commun : nous dépassons parfois les obligations d'état</li>
-                    <li>Un risque contrôlé, souvent inférieur aux options</li>
-                </ul>
-            </div>
-            <div class="col c3">
-                <h2><span>Nous</span> Contacter</h2>
-                <p>Pour devenir client, merci de vous rendre en agence de 10h30 à 11h30 et de 14h à 15h30 du mardi au vendredi</p>
-                <p class="contact_info"> <span>Adresse Agence:</span> Sipios, 48 boulevard des batignolles, 75017 Paris</p>
-                <p class="contact_info"> <span>Adresse Equipe Support IT:</span> Bam, 48 boulevard des batignolles, 75017 Paris</p>
 
+<body>
+    <div class="main indexpage">
+        <div class="header">
+            <div class="header_resize">
+                <div class="menu_nav">
+                    <ul th:if="${maintenanceDisabled}">
+                        <li class="active"><a href="/"><span>Accueil</span></a></li>
+                        <li><a href="/se-connecter"><span>Déjà client?</span></a></li>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <h1><a href="/"><span>Sipios Bank</span> <small>L'investissement sain, aujourd'hui</small></a></h1>
+                </div>
+                <div class="clr"></div>
+                <div class="slider">
+                    <div id="coin-slider"> <a href="#"><img src="images/slide1.jpg" width="927" height="323" alt="" />
+                        </a> <a href="#"><img src="images/slide2.jpg" width="927" height="323" alt="" /> </a> <a
+                            href="#"><img src="images/slide3.jpg" width="927" height="323" alt="" /> </a> </div>
+                    <div class="clr"></div>
+                </div>
+                <div class="clr"></div>
             </div>
-            <div class="clr"></div>
+        </div>
+        <div class="content">
+            <div class="content_resize">
+                <h1>Connexion Sécurisée</h1>
+                <p>Example user: user / password</p>
+                <p th:if="${loginError}" class="error">Mauvais nom d'utilisateur ou mdp</p>
+                <form th:action="@{/se-connecter}" method="post">
+                    <label for="username">Nom d'utilisateur</label>:
+                    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+                    <label for="password">Mot de passe</label>:
+                    <input type="password" id="password" name="password" /> <br />
+                    <input type="submit" value="Se connecter" />
+                </form>
+                <div class="sidebar">
+                    <div class="clr"></div>
+                    <div class="gadget" th:if="${maintenanceDisabled}">
+                        <h2 class="star">Menu</h2>
+                        <div class="clr"></div>
+                        <ul class="sb_menu">
+                            <li><a href="/">Accueil</a></li>
+                            <li><a href="/se-connecter">Déjà client?</a></li>
+                        </ul>
+                    </div>
+                    <div class="gadget" th:if="${maintenanceDisabled}">
+                        <h2 class="star"><span>Sponsors</span></h2>
+                        <div class="clr"></div>
+                        <ul class="ex_menu">
+                            <li>Caïman Corp<br />
+                                Des investissements paradisiaques</li>
+                            <li>Laundering SARL<br />
+                                Investissez dans des commerces locaux</li>
+                            <li>Insider Trading Limited<br />
+                                Tout savoir avant tout le monde</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+        <div class="fbg">
+            <div class="fbg_resize">
+                <div class="col c3">
+                    <h2><span>Nos</span> Services</h2>
+                    <p>Nous gérons vos comptes en banques et vos investissements comme si c'était les notres</p>
+                    <ul class="fbg_ul">
+                        <li>Une réponse rapide à vos demandes (2 semaines maximum)</li>
+                        <li>Une performance hors du commun : nous dépassons parfois les obligations d'état</li>
+                        <li>Un risque contrôlé, souvent inférieur aux options</li>
+                    </ul>
+                </div>
+                <div class="col c3">
+                    <h2><span>Nous</span> Contacter</h2>
+                    <p>Pour devenir client, merci de vous rendre en agence de 10h30 à 11h30 et de 14h à 15h30 du mardi
+                        au vendredi</p>
+                    <p class="contact_info"> <span>Adresse Agence:</span> Sipios, 48 boulevard des batignolles, 75017
+                        Paris</p>
+                    <p class="contact_info"> <span>Adresse Equipe Support IT:</span> Bam, 48 boulevard des batignolles,
+                        75017 Paris</p>
+
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer_resize">
+                <p class="lf">Copyright &copy; <a href="#">Sipios</a>. Tous droits réservés</p>
+                <div style="clear:both;"></div>
+            </div>
         </div>
     </div>
-    <div class="footer">
-        <div class="footer_resize">
-            <p class="lf">Copyright &copy; <a href="#">Sipios</a>. Tous droits réservés</p>
-            <div style="clear:both;"></div>
-        </div>
-    </div>
-</div>
-<!-- CHANGELOG 1.0.6 : Added maintenanceDisabled query param to override maintenance mode for debug purposes -->
+    <!-- CHANGELOG 1.0.6 : Added maintenanceDisabled query param to override maintenance mode for debug purposes -->
 </body>
+
 </html>
