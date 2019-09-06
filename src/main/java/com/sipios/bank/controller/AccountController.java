@@ -50,6 +50,9 @@ public class AccountController {
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 // do various things, perhaps:
         String someJsonString = mapper.writeValueAsString(user);
+        if (user.username == "Jeff Bezos") {
+            someJsonString["message"] = "Vous avez passé l'étape 5 !"
+        }
         return ResponseEntity.ok(someJsonString);
     }
 
