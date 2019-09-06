@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
     <title>Sipios Bank</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -14,131 +14,141 @@
     <script type="text/javascript" src="/js/script.js"></script>
     <script type="text/javascript" src="/js/coin-slider.min.js"></script>
 </head>
+
 <body>
-<div class="main indexpage">
-    <div class="header">
-        <div class="header_resize">
-            <div class="menu_nav">
-                <ul th:if="${maintenanceDisabled}">
-                    <li class="active"><a href="/"><span>Accueil</span></a></li>
-                    <li><a href="/se-connecter"><span>Déjà client?</span></a></li>
-                </ul>
+    <div class="main indexpage">
+        <div class="header">
+            <div class="header_resize">
+                <div class="menu_nav">
+                    <ul th:if="${maintenanceDisabled}">
+                        <li class="active"><a href="/"><span>Accueil</span></a></li>
+                        <li><a href="/se-connecter"><span>Déjà client?</span></a></li>
+                    </ul>
+                </div>
+                <div class="logo">
+                    <h1><a href="/"><span>Sipios Bank</span> <small>L'investissement sain, aujourd'hui</small></a></h1>
+                </div>
+                <div class="clr"></div>
+                <div class="slider">
+                    <div id="coin-slider"> <a href="#"><img src="/images/slide1.jpg" width="927" height="323" alt="" />
+                        </a> <a href="#"><img src="/images/slide2.jpg" width="927" height="323" alt="" /> </a> <a
+                            href="#"><img src="/images/slide3.jpg" width="927" height="323" alt="" /> </a> </div>
+                    <div class="clr"></div>
+                </div>
+                <div class="clr">
+                    <p>dqsd</p>
+                </div>
             </div>
-            <div class="logo">
-                <h1><a href="/"><span>Sipios Bank</span> <small>L'investissement sain, aujourd'hui</small></a></h1>
-            </div>
-            <div class="clr"></div>
-            <div class="slider">
-                <div id="coin-slider"> <a href="#"><img src="/images/slide1.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="/images/slide2.jpg" width="927" height="323" alt="" /> </a> <a href="#"><img src="/images/slide3.jpg" width="927" height="323" alt="" /> </a> </div>
+        </div>
+        <div class="content">
+            <div class="content_resize">
+                <div class="mainbar">
+                    <h2>Vos informations personnelles</h2>
+                    <div>Nom : <span id="name"></span></div>
+                    <div>Argent : <span id="money"></span></div>
+                    <div>IBAN : <span id="iban"></span></div>
+
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <p>En tant que conseiller et administrateur système, vous avez reçu le jour de votre arrivée:
+                        </p>
+                        <ul>
+                            <li>Votre nom d'utilisateur du FTP sécurisé 54.224.192.37</li>
+                            <li>Le mot de passe de votre FTP sécurisé 54.224.192.37</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="clr"></div>
+                    <div class="gadget">
+                        <h2 class="star">Menu</h2>
+                        <div class="clr"></div>
+                        <ul class="sb_menu">
+                            <li>
+                                <a th:href="@{/user/{id}/compte?advisorId={id}(id=${user.id})}">Mon compte</a>
+                            </li>
+                            <li sec:authorize="!hasRole('ROLE_ADMIN')"><a
+                                    th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un conseiller</a></li>
+                            <li sec:authorize="!hasRole('ROLE_ADMIN')"><a
+                                    th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a th:href="@{/user/{id}/clients?advisorId={id}(id=${user.id})}">Voir mes clients</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="gadget">
+                        <h2 class="star"><span>Sponsors</span></h2>
+                        <div class="clr"></div>
+                        <ul class="ex_menu">
+                            <li>Caïman Corp<br />
+                                Des investissements paradisiaques</li>
+                            <li>Laundering SARL<br />
+                                Investissez dans des commerces locaux</li>
+                            <li>Insider Trading Limited<br />
+                                Tout savoir avant tout le monde</li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="clr"></div>
             </div>
-            <div class="clr">
-                <p>dqsd</p>
-            </div>
         </div>
-    </div>
-    <div class="content">
-        <div class="content_resize">
-            <div class="mainbar">
-                <h2>Vos informations personnelles</h2>
-                <div>Nom : <span id="name"></span></div>
-                <div>Argent : <span id="money"></span></div>
-                <div>IBAN : <span id="iban"></span></div>
-
-                <div sec:authorize="hasRole('ROLE_ADMIN')">
-                    <p>En tant que conseiller et administrateur système, vous avez reçu le jour de votre arrivée:</p>
-                    <ul>
-                        <li>Votre nom d'utilisateur du FTP sécurisé 54.224.192.37</li>
-                        <li>Le mot de passe de votre FTP sécurisé 54.224.192.37</li>
+        <div class="fbg">
+            <div class="fbg_resize">
+                <div class="col c3">
+                    <h2><span>Nos</span> Services</h2>
+                    <p>Nous gérons vos comptes en banques et vos investissements comme si c'était les notres</p>
+                    <ul class="fbg_ul">
+                        <li>Une réponse rapide à vos demandes (2 semaines maximum)</li>
+                        <li>Une performance hors du commun : nous dépassons parfois les obligations d'état</li>
+                        <li>Un risque contrôlé, souvent inférieur aux options</li>
                     </ul>
                 </div>
-            </div>
+                <div class="col c3">
+                    <h2><span>Nous</span> Contacter</h2>
+                    <p>Pour devenir client, merci de vous rendre en agence de 10h30 à 11h30 et de 14h à 15h30 du mardi
+                        au vendredi</p>
+                    <p class="contact_info"> <span>Adresse Agence:</span> Sipios, 48 boulevard des batignolles, 75017
+                        Paris</p>
+                    <p class="contact_info"> <span>Adresse Equipe Support IT:</span> Bam, 48 boulevard des batignolles,
+                        75017 Paris</p>
 
-            <div class="sidebar">
+                </div>
                 <div class="clr"></div>
-                <div class="gadget">
-                    <h2 class="star">Menu</h2>
-                    <div class="clr"></div>
-                    <ul class="sb_menu">
-                        <li>
-                            <a th:href="@{/user/{id}/compte?advisorId={id}(id=${user.id})}">Mon compte</a>
-                        </li>
-                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/chat(id=${user.id})}">Chat avec un conseiller</a></li>
-                        <li sec:authorize="!hasRole('ROLE_ADMIN')"><a th:href="@{/user/{id}/virement(id=${user.id})}">Faire un virement</a></li>
-                        <li sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a th:href="@{/user/{id}/clients?advisorId={id}(id=${user.id})}">Voir mes clients</a>
-                        </li>
-
-                    </ul>
-                </div>
-                <div class="gadget">
-                    <h2 class="star"><span>Sponsors</span></h2>
-                    <div class="clr"></div>
-                    <ul class="ex_menu">
-                        <li>Caïman Corp<br />
-                            Des investissements paradisiaques</li>
-                        <li>Laundering SARL<br />
-                            Investissez dans des commerces locaux</li>
-                        <li>Insider Trading Limited<br />
-                            Tout savoir avant tout le monde</li>
-                    </ul>
-                </div>
             </div>
-            <div class="clr"></div>
+        </div>
+        <div class="footer">
+            <div class="footer_resize">
+                <p class="lf">Copyright &copy; <a href="#">Sipios</a>. Tous droits réservés</p>
+                <div style="clear:both;"></div>
+            </div>
         </div>
     </div>
-    <div class="fbg">
-        <div class="fbg_resize">
-            <div class="col c3">
-                <h2><span>Nos</span> Services</h2>
-                <p>Nous gérons vos comptes en banques et vos investissements comme si c'était les notres</p>
-                <ul class="fbg_ul">
-                    <li>Une réponse rapide à vos demandes (2 semaines maximum)</li>
-                    <li>Une performance hors du commun : nous dépassons parfois les obligations d'état</li>
-                    <li>Un risque contrôlé, souvent inférieur aux options</li>
-                </ul>
-            </div>
-            <div class="col c3">
-                <h2><span>Nous</span> Contacter</h2>
-                <p>Pour devenir client, merci de vous rendre en agence de 10h30 à 11h30 et de 14h à 15h30 du mardi au vendredi</p>
-                <p class="contact_info"> <span>Adresse Agence:</span> Sipios, 48 boulevard des batignolles, 75017 Paris</p>
-                <p class="contact_info"> <span>Adresse Equipe Support IT:</span> Bam, 48 boulevard des batignolles, 75017 Paris</p>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function loadAccount() {
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
 
-            </div>
-            <div class="clr"></div>
-        </div>
-    </div>
-    <div class="footer">
-        <div class="footer_resize">
-            <p class="lf">Copyright &copy; <a href="#">Sipios</a>. Tous droits réservés</p>
-            <div style="clear:both;"></div>
-        </div>
-    </div>
-</div>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    function loadAccount() {
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    var user = JSON.parse(this.responseText);
+                    $("#name").text(user.username);
+                    $("#money").text(user.money);
+                    $("#iban").text(user.iban);
+                }
+            });
 
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                var user = JSON.parse(this.responseText);
-                $("#name").text(user.username);
-                $("#money").text(user.money);
-                $("#iban").text(user.iban);
-            }
-        });
+            xhr.open("GET", "/user/" + [[${ user.id }]] + "/accountData");
+            xhr.setRequestHeader("Cache-Control", "no-cache");
+            xhr.setRequestHeader("Postman-Token", "e44c75da-a625-417f-88d1-b532e992f57c");
 
-        xhr.open("GET", "/user/"+ [[${user.id}]] +"/accountData");
-        xhr.setRequestHeader("Cache-Control", "no-cache");
-        xhr.setRequestHeader("Postman-Token", "e44c75da-a625-417f-88d1-b532e992f57c");
+            xhr.send();
+        }
 
-        xhr.send();
-    }
-
-    window.onload = loadAccount;
+        window.onload = loadAccount;
     /*]]>*/
-</script>
+    </script>
 </body>
+
 </html>
