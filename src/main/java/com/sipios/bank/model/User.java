@@ -21,6 +21,8 @@ public class User implements Serializable {
 
     private String pinCode;
 
+    private String message;
+
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
@@ -131,5 +133,13 @@ public class User implements Serializable {
 
     public void setPinCode(String pinCode) {
         this.pinCode = pinCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
