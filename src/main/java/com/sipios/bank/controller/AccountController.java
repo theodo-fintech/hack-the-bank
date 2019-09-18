@@ -49,10 +49,10 @@ public class AccountController {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 // do various things, perhaps:
-        String someJsonString = mapper.writeValueAsString(user);
-        if (user.username == "Jeff Bezos") {
-            someJsonString["message"] = "Vous avez passé l'étape 5 !"
+        if (user.getUsername().compareTo("Jeff Bezos") == 0) {
+            user.setMessage( "Vous avez passé l'étape 5 !");
         }
+        String someJsonString = mapper.writeValueAsString(user);
         return ResponseEntity.ok(someJsonString);
     }
 
