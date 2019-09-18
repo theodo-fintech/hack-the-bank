@@ -57,12 +57,14 @@
                         </ul>
                         <p>Vous avez passé l'étape 3 ! Vous avez maintenant accès au compte d'un conseiller!</p>
                     </div>
-                    <div sec:authorize="hasRole('ROLE_USER_PREMIUM')">
-                        <p>Vous avez passé l'étape 2 ! Vous avez maintenant accès à un compte premium!</p>
-                    </div>
-                    <div sec:authorize="hasRole('ROLE_USER_SUPER_PREMIUM')">
-                        <p>Vous avez passé l'étape 4 ! Vous avez maintenant accès au compte de Jeff Bezos!</p>
-                    </div>
+                    <th:block th:each="role: ${user.roles}">
+                        <div th:if="${role.name}=='ROLE_USER_PREMIUM'">
+                            <p>Vous avez passé l'étape 2 ! Vous avez maintenant accès à un compte premium!</p>
+                        </div>
+                        <div th:if="${role.name}=='ROLE_USER_SUPER_PREMIUM'">
+                            <p>Vous avez passé l'étape 4 ! Vous avez maintenant accès au compte de Jeff Bezos!</p>
+                        </div>
+                    </th:block>
                 </div>
 
                 <div class="sidebar">
